@@ -9,33 +9,31 @@ import java.util.Map;
 @Component("RecipeService")
 public class RecipeServiceImpl implements RecipeService {
 
-    private static Map<Long, Recipe> recipesList = new HashMap<>();
+    private static Map<Long, Recipe> recipesMap = new HashMap<>();
     private static long recipeId = 0;
 
     @Override
     public Recipe addRecipe(Recipe recipe) {
 
-        recipesList.putIfAbsent(recipeId++, recipe);
+        recipesMap.putIfAbsent(recipeId++, recipe);
         return recipe;
     }
 
     @Override
     public Recipe getRecipe(long recipeNumber) {
 
-        return recipesList.get(recipeNumber);
+        return recipesMap.get(recipeNumber);
 
     }
 
     @Override
     public Recipe editRecipe(long recipeNumber, Recipe recipe) {
-        for(int i = 0; i < recipesList.size(); i++) {
 
-            if (recipesList.containsKey(recipeNumber)) {
+            if (recipesMap.containsKey(recipeNumber)) {
 
-                recipesList.put(recipeNumber, recipe);
+                recipesMap.put(recipeNumber, recipe);
                 return recipe;
             }
-        }
 
         return null;
     }
@@ -43,14 +41,11 @@ public class RecipeServiceImpl implements RecipeService {
     @Override
     public boolean deleteRecipe(long recipeNumber) {
 
-        for (int i = 0; i < recipesList.size(); i++) {
+            if (recipesMap.containsKey(recipeNumber)) {
 
-            if (recipesList.containsKey(recipeNumber)) {
-
-                recipesList.remove(recipeNumber);
+                recipesMap.remove(recipeNumber);
                 return true;
             }
-        }
 
         return false;
     }

@@ -9,33 +9,32 @@ import java.util.Map;
 @Service
 public class IngredientServiceImpl implements IngredientService {
 
-    private static Map<Long, Ingredient> ingredientsList = new HashMap<>();
+    private static Map<Long, Ingredient> ingredientsMap = new HashMap<>();
     private static long ingredientId = 0;
 
     @Override
     public Ingredient addIngredient(Ingredient ingredient) {
 
-        ingredientsList.putIfAbsent(ingredientId++, ingredient);
+        ingredientsMap.putIfAbsent(ingredientId++, ingredient);
         return ingredient;
     }
 
     @Override
     public Ingredient getIngredient(long ingredientNumber) {
 
-        return ingredientsList.get(ingredientNumber);
+        return ingredientsMap.get(ingredientNumber);
 
     }
 
     @Override
     public Ingredient editIngredient(long ingredientNumber, Ingredient ingredient) {
-        for(int i = 0; i < ingredientsList.size(); i++) {
 
-            if (ingredientsList.containsKey(ingredientNumber)) {
+        if (ingredientsMap.containsKey(ingredientNumber)) {
 
-                ingredientsList.put(ingredientNumber, ingredient);
+                ingredientsMap.put(ingredientNumber, ingredient);
                 return ingredient;
             }
-        }
+
 
         return null;
     }
@@ -43,14 +42,12 @@ public class IngredientServiceImpl implements IngredientService {
     @Override
     public boolean deleteIngredient(long ingredientNumber) {
 
-        for (int i = 0; i < ingredientsList.size(); i++) {
+        if (ingredientsMap.containsKey(ingredientNumber)) {
 
-            if (ingredientsList.containsKey(ingredientNumber)) {
-
-                ingredientsList.remove(ingredientNumber);
+                ingredientsMap.remove(ingredientNumber);
                 return true;
             }
-        }
+
         return false;
     }
 
