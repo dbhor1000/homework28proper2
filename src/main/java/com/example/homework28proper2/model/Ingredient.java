@@ -19,19 +19,19 @@ public class Ingredient {
         this.name = name;
     }
 
-    public int getAmountNumber() {
+    public int getAmount() {
         return amount;
     }
 
-    public void setAmountNumber(int amount) {
+    public void setAmount(int amount) {
         this.amount = amount;
     }
 
-    public String getMeasureUnit() {
+    public String getWeight_units() {
         return weight_units;
     }
 
-    public void setMeasureUnit(String weight_units) {
+    public void setWeight_units(String weight_units) {
         this.weight_units = weight_units;
     }
 }

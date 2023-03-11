@@ -5,6 +5,7 @@ import com.example.homework28proper2.services.IngredientService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+//Контроллер для обработки запросов, относящихся к сервису ингредиентов
 @RestController
 @RequestMapping("/ingredient")
 public class IngredientController {
@@ -17,7 +18,7 @@ public class IngredientController {
 
     }
 
-    @PostMapping("/addIngredient")
+    @PostMapping("/addIngredient")  //Эндпоинт для добавления ингредиента
     public ResponseEntity<Ingredient> addIngredient(@RequestBody Ingredient ingredient) {
 
         Ingredient addedIngredient = ingredientService.addIngredient(ingredient);
@@ -26,7 +27,7 @@ public class IngredientController {
     }
 
 
-    @GetMapping("/{ingredientNumber}")
+    @GetMapping("/{ingredientNumber}")  //Эндпоинт для получения ингредиента по номеру
     public ResponseEntity<Ingredient> getIngredient(@PathVariable long ingredientNumber) {
 
         Ingredient ingredient = ingredientService.getIngredient(ingredientNumber);
@@ -38,7 +39,7 @@ public class IngredientController {
         return ResponseEntity.ok(ingredient);
     }
 
-    @PutMapping("/edit/{ingredientNumber}")
+    @PutMapping("/edit/{ingredientNumber}") //Эндпоинт для модификации ингредиента по номеру
     public ResponseEntity<Ingredient> editIngredient(@PathVariable long ingredientNumber, @RequestBody Ingredient ingredient) {
 
         Ingredient editedIngredient = ingredientService.editIngredient(ingredientNumber, ingredient);
@@ -51,7 +52,7 @@ public class IngredientController {
         return ResponseEntity.ok(ingredient);
     }
 
-    @DeleteMapping("/delete/{ingredientNumber}")
+    @DeleteMapping("/delete/{ingredientNumber}") //Эндпоинт для удаления ингредиента
     public ResponseEntity<Void> deleteIngredient(@PathVariable long ingredientNumber) {
 
         if (ingredientService.deleteIngredient(ingredientNumber)) {
