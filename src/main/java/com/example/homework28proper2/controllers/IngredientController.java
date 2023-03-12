@@ -4,6 +4,7 @@ import com.example.homework28proper2.model.Ingredient;
 import com.example.homework28proper2.services.IngredientService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -43,7 +44,7 @@ public class IngredientController {
 
         Ingredient ingredient = ingredientService.getIngredient(ingredientNumber);
 
-        if (ingredient == null) {
+        if (ObjectUtils.isEmpty(ingredient)) {
             return ResponseEntity.notFound().build();
         }
 
@@ -59,7 +60,7 @@ public class IngredientController {
 
         Ingredient editedIngredient = ingredientService.editIngredient(ingredientNumber, ingredient);
 
-        if (ingredient == null) {
+        if (ObjectUtils.isEmpty(ingredient)) {
 
             return ResponseEntity.notFound().build();
         }

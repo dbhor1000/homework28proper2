@@ -4,6 +4,7 @@ import com.example.homework28proper2.model.Recipe;
 import com.example.homework28proper2.services.RecipeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,7 +37,7 @@ public class RecipeController {
     )
     public ResponseEntity<Recipe> getRecipe(@PathVariable long recipeNumber){
         Recipe recipe = recipeService.getRecipe(recipeNumber);
-        if (recipe == null){
+        if (ObjectUtils.isEmpty(recipe)){
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(recipe);
@@ -49,7 +50,7 @@ public class RecipeController {
     )
     public ResponseEntity<Recipe> editIngredient(@PathVariable long recipeNumber, @RequestBody Recipe recipe) {
         Recipe editedRecipe = recipeService.editRecipe(recipeNumber, recipe);
-        if (recipe == null) {
+        if (ObjectUtils.isEmpty(recipe)) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(recipe);
