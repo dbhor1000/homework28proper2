@@ -57,6 +57,7 @@ public class RecipeServiceImpl implements RecipeService {
             if (recipesMap.containsKey(recipeNumber)) {
 
                 recipesMap.remove(recipeNumber);
+                saveRecipesToFile();
                 return true;
             }
 

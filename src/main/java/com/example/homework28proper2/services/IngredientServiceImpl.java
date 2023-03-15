@@ -60,6 +60,7 @@ public class IngredientServiceImpl implements IngredientService {
         if (ingredientsMap.containsKey(ingredientNumber)) {
 
                 ingredientsMap.remove(ingredientNumber);
+                saveIngredientsToFile();
                 return true;
             }
 
