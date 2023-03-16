@@ -5,8 +5,11 @@ import com.example.homework28proper2.services.IngredientService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.commons.lang3.ObjectUtils;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.FileNotFoundException;
 
 //Контроллер для обработки запросов, относящихся к сервису ингредиентов
 @RestController
@@ -81,5 +84,4 @@ public class IngredientController {
 
         return ResponseEntity.notFound().build();
     }
-
 }

@@ -3,6 +3,7 @@ package com.example.homework28proper2.services;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -63,5 +64,43 @@ public class FilesServiceImpl implements FilesService {
         }
     }
 
+    @Override
+    public File getDataFileIngredients() {
 
+        return new File(dataFilesPath + "/" + ingredientsFileName);
+
+    }
+
+    @Override
+    public File getDataFileRecipes() {
+
+        return new File(dataFilesPath + "/" + recipesFileName);
+
+    }
+
+    @Override
+    public boolean cleanDataFileIngredients() {
+        try {
+            Path path = Path.of(dataFilesPath, ingredientsFileName);
+            Files.deleteIfExists(path);
+            Files.createFile(path);
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public boolean cleanDataFileRecipes() {
+        try {
+            Path path = Path.of(dataFilesPath, recipesFileName);
+            Files.deleteIfExists(path);
+            Files.createFile(path);
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }
