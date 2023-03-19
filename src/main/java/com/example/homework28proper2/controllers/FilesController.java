@@ -67,6 +67,29 @@ public class FilesController {
         }
     }
 
+    //@PostMapping(value = "/uploadIngredients", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    //@Operation(
+    //        summary = "Добавить файл списка ингредиентов",
+    //        description = "Закачать файл списка ингредиентов на сервер"
+    //)
+    //public ResponseEntity<Void> uploadIngredientsFile(@RequestParam MultipartFile file){
+    //
+    //    filesService.cleanDataFileIngredients();
+    //    File dataFile = filesService.getDataFileIngredients();
+    //    try(FileOutputStream fos = new FileOutputStream(dataFile)) {
+    //
+    //        IOUtils.copy(file.getInputStream(), fos);
+    //        return ResponseEntity.ok().build();
+    //
+    //    } catch (IOException e) {
+    //
+    //        e.printStackTrace();
+    //    }
+    //
+    //    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    //
+    //}
+
     @PostMapping(value = "/uploadIngredients", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @Operation(
             summary = "Добавить файл списка ингредиентов",
@@ -74,21 +97,37 @@ public class FilesController {
     )
     public ResponseEntity<Void> uploadIngredientsFile(@RequestParam MultipartFile file){
 
-        filesService.cleanDataFileIngredients();
-        File dataFile = filesService.getDataFileIngredients();
-        try(FileOutputStream fos = new FileOutputStream(dataFile)) {
-
-            IOUtils.copy(file.getInputStream(), fos);
+        if (filesService.uploadIngredients(file)){
+            filesService.uploadIngredients(file);
             return ResponseEntity.ok().build();
-
-        } catch (IOException e) {
-
-            e.printStackTrace();
         }
 
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 
     }
+
+    //@PostMapping(value = "/uploadRecipes", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    //@Operation(
+    //        summary = "Добавить файл списка рецептов",
+    //        description = "Закачать файл списка рецептов на сервер"
+    //)
+    //public ResponseEntity<Void> uploadRecipesFile(@RequestParam MultipartFile file){
+    //
+    //    filesService.cleanDataFileRecipes();
+    //    File dataFile = filesService.getDataFileRecipes();
+    //    try(FileOutputStream fos = new FileOutputStream(dataFile)) {
+    //
+    //        IOUtils.copy(file.getInputStream(), fos);
+    //        return ResponseEntity.ok().build();
+    //
+    //    } catch (IOException e) {
+    //
+    //        e.printStackTrace();
+    //    }
+    //
+    //    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    //
+    //}
 
     @PostMapping(value = "/uploadRecipes", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @Operation(
@@ -97,16 +136,10 @@ public class FilesController {
     )
     public ResponseEntity<Void> uploadRecipesFile(@RequestParam MultipartFile file){
 
-        filesService.cleanDataFileRecipes();
-        File dataFile = filesService.getDataFileRecipes();
-        try(FileOutputStream fos = new FileOutputStream(dataFile)) {
-
-            IOUtils.copy(file.getInputStream(), fos);
+        filesService.uploadRecipes(file);
+        if (filesService.uploadRecipes(file)){
+            filesService.uploadRecipes(file);
             return ResponseEntity.ok().build();
-
-        } catch (IOException e) {
-
-            e.printStackTrace();
         }
 
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
