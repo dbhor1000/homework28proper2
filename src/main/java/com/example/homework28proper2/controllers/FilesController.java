@@ -98,7 +98,6 @@ public class FilesController {
     public ResponseEntity<Void> uploadIngredientsFile(@RequestParam MultipartFile file){
 
         if (filesService.uploadIngredients(file)){
-            filesService.uploadIngredients(file);
             return ResponseEntity.ok().build();
         }
 
@@ -136,9 +135,7 @@ public class FilesController {
     )
     public ResponseEntity<Void> uploadRecipesFile(@RequestParam MultipartFile file){
 
-        filesService.uploadRecipes(file);
         if (filesService.uploadRecipes(file)){
-            filesService.uploadRecipes(file);
             return ResponseEntity.ok().build();
         }
 
