@@ -3,6 +3,8 @@ package com.example.homework28proper2.controllers;
 import com.example.homework28proper2.model.Recipe;
 import com.example.homework28proper2.services.RecipeService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.core.io.InputStreamResource;
@@ -80,6 +82,21 @@ public class RecipeController {
     @Operation(
             summary = "Сохранение в формате TXT",
             description = "Сохранение базы данных рецептов в файле формата TXT"
+    )
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200", description = "всё хорошо, запрос выполнился"
+            ),
+            @ApiResponse(
+                    responseCode = "400", description = "есть ошибка в параметрах запроса"
+            ),
+            @ApiResponse(
+                    responseCode = "404", description = "URL неверный или такого действия нет в веб-приложении"
+            ),
+            @ApiResponse(
+                    responseCode = "500", description = "во время выполнения запроса произошла ошибка на сервере"
+            )
+    }
     )
     public ResponseEntity<Object> getRecipesReadable() {
 
