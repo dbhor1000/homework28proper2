@@ -1,6 +1,5 @@
 package com.example.homework28proper2.services;
 
-import com.example.homework28proper2.model.Ingredient;
 import com.example.homework28proper2.model.Recipe;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -8,7 +7,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import java.util.HashMap;
+import java.io.IOException;
+import java.io.Writer;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -92,4 +95,19 @@ public class RecipeServiceImpl implements RecipeService {
         }
     }
 
+
+    //Домашняя работа от 21.03
+
+    @Override
+    public Path saveRecipesAsOrderedFile() throws IOException {
+
+        Path path = filesService.addTempFile("recipesReadable");
+        for(Recipe recipe : recipesMap.values()){
+            try(Writer writer = Files.newBufferedWriter(path, StandardOpenOption.APPEND)){
+                writer.append("Dish name: " + recipe.getName() + "\nDish cooking time: " + recipe.getCookingTime()  + " минут" + "\nDish ingredients " + recipe.getIngredients()  + "\nCooking steps: " + recipe.getCookingSteps());
+                writer.append("\n");
+            }
+        }
+        return path;
+    }
 }

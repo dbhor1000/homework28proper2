@@ -3,6 +3,7 @@ package com.example.homework28proper2.services;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.nio.file.Path;
 
 public interface FilesService {
 
@@ -18,4 +19,6 @@ public interface FilesService {
     boolean uploadIngredients(MultipartFile file);
 
     boolean uploadRecipes(MultipartFile file);
+
+    Path addTempFile(String suffix);
 }

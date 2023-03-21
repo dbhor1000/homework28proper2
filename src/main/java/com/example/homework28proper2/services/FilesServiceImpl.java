@@ -2,7 +2,6 @@ package com.example.homework28proper2.services;
 
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -109,11 +108,11 @@ public class FilesServiceImpl implements FilesService {
     }
 
     @Override
-    public boolean uploadIngredients(MultipartFile file){
+    public boolean uploadIngredients(MultipartFile file) {
 
         cleanDataFileIngredients();
         File dataFile = getDataFileIngredients();
-        try(FileOutputStream fos = new FileOutputStream(dataFile)) {
+        try (FileOutputStream fos = new FileOutputStream(dataFile)) {
 
             IOUtils.copy(file.getInputStream(), fos);
             return true;
@@ -132,7 +131,7 @@ public class FilesServiceImpl implements FilesService {
 
         cleanDataFileRecipes();
         File dataFile = getDataFileRecipes();
-        try(FileOutputStream fos = new FileOutputStream(dataFile)) {
+        try (FileOutputStream fos = new FileOutputStream(dataFile)) {
 
             IOUtils.copy(file.getInputStream(), fos);
             return true;
@@ -143,6 +142,19 @@ public class FilesServiceImpl implements FilesService {
             return false;
         }
     }
+
+    @Override
+    public Path addTempFile(String suffix) {
+
+        try {
+        return Files.createTempFile(Path.of(dataFilesPath), "tempFile", suffix);
+    } catch (IOException e) {
+        throw new RuntimeException(e);
+    }
+    }
+
+
+
 
 
 }

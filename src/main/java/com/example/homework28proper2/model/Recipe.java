@@ -17,4 +17,5 @@ public class Recipe {
     List<Ingredient> ingredients = new ArrayList<>();
     List<String> cookingSteps = new ArrayList<>();
 
+
 }

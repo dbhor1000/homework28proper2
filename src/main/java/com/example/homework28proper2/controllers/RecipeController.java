@@ -5,8 +5,16 @@ import com.example.homework28proper2.services.RecipeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.commons.lang3.ObjectUtils;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 //Контроллер для запросов, относящихся к сервису рецептов
 @RestController
@@ -67,4 +75,30 @@ public class RecipeController {
         }
         return ResponseEntity.notFound().build();
     }
+
+    @GetMapping("/recipesAsReadable")
+    @Operation(
+            summary = "Сохранение в формате TXT",
+            description = "Сохранение базы данных рецептов в файле формата TXT"
+    )
+    public ResponseEntity<Object> getRecipesReadable() {
+
+        try {
+            Path path = recipeService.saveRecipesAsOrderedFile();
+            if (Files.size(path) == 0) {
+                return ResponseEntity.noContent().build();
+            }
+
+            InputStreamResource resource = new InputStreamResource(new FileInputStream(path.toFile()));
+            return ResponseEntity.ok()
+                    .contentType(MediaType.TEXT_PLAIN)
+                    .contentLength(Files.size(path))
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename = \"" + " -report.txt\"")
+                    .body(resource);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return ResponseEntity.internalServerError().body(e.toString());
+        }
+    }
+
 }
